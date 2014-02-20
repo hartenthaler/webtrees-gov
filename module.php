@@ -23,7 +23,7 @@
 //
 // based on googlemaps module
 //
-// $Id: module.php 2013-11-09 22:47:03Z Hermann Hartenthaler $
+// Hermann Hartenthaler
 
 if (!defined('WT_WEBTREES')) {
 	header('HTTP/1.0 403 Forbidden');
@@ -33,10 +33,11 @@ if (!defined('WT_WEBTREES')) {
 class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab {
 
 	public function __construct() {
+		parent::__construct();
 		// Load any local user translations
 		if (is_dir(WT_MODULES_DIR.$this->getName().'/language')) {
 			if (file_exists(WT_MODULES_DIR.$this->getName().'/language/'.WT_LOCALE.'.mo')) {
-				Zend_Registry::get('Zend_Translate')->addTranslation(
+				WT_I18N::addTranslation(
 					new Zend_Translate('gettext', WT_MODULES_DIR.$this->getName().'/language/'.WT_LOCALE.'.mo', WT_LOCALE)
 				);
 			}
@@ -58,9 +59,10 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 		return 88;
 	}
 	
+	//tbd: even if visibility of this module is set to "visitor/public" it is only shown to logedin users
 	// Extend class WT_Module
 	public function defaultAccessLevel() {
-		return WT_PRIV_USER;
+		return WT_PRIV_PUBLIC; // WT_PRIV_PUBLIC, WT_PRIV_USER, WT_PRIV_NONE, WT_PRIV_HIDE
 	}
 	
 	// Implement WT_Module_Tab
@@ -70,6 +72,7 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 
 	// Extend WT_Module
 	public function modAction($mod_action) {
+		echo $this->includeCss(WT_STATIC_URL.WT_MODULES_DIR.$this->getName().'/themes/_administration/style.css');  // tbd: this place is not ok to load admin css
 		switch($mod_action) {
 		case 'admin_config':
 			$this->config();
@@ -114,6 +117,10 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 		require_once WT_ROOT.WT_MODULES_DIR.$this->getName().'/defaultconfig.php';
 		// echo '[PLAC FORM=', $this->get_plac_label(), '] ';
 		
+		// load the module stylesheets
+		// echo '[wt_theme_url=', WT_THEME_URL, '] ';
+		echo $this->getStylesheet();
+		
 		if (checkMapData()) {  // is there any location data for this person with family ?
 			ob_start();
 			// get_family_persons:	build array with ids of relevant persons and families
@@ -140,7 +147,6 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 	// Implement WT_Module_Tab
 	public function hasTabContent() {
 		global $SEARCH_SPIDER;
-
 		return !$SEARCH_SPIDER && (array_key_exists('GOV', WT_Module::getActiveModules()) || WT_USER_IS_ADMIN);
 	}
 
@@ -148,7 +154,7 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 	public function isGrayedOut() {
 		return false;
 	}
-
+	
 	private function config() {
 		require WT_ROOT.WT_MODULES_DIR.$this->getName().'/defaultconfig.php';
 		require WT_ROOT.'includes/functions/functions_edit.php';
@@ -157,7 +163,7 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 		$place_labels = $this->get_plac_label();
 		// number of elements (tested only for 4 hierarchie levels up to now)
 		$nb_plac_levels = substr_count($place_labels,',')+1;
-		echo "[nb_plac_levels=".$nb_plac_levels."] ";
+		// echo "[nb_plac_levels=".$nb_plac_levels."] ";
 
 		$action = WT_Filter::post('action');
 		
@@ -166,8 +172,10 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 			->requireAdminLogin()
 			->setPageTitle('GOV')
 			->pageHeader()
-			->addInlineJavascript('jQuery("#tabs").tabs();');
-
+			->addInlineJavascript('jQuery("#tabs").tabs();');  // tbd: ???
+		
+		// echo '[theme=', WT_STATIC_URL.WT_MODULES_DIR.$this->getName().'/themes/_administration/style.css', '] ';	
+		echo $this->includeCss(WT_STATIC_URL.WT_MODULES_DIR.$this->getName().'/themes/_administration/style.css');
 
 		if ($action=='update') {
 			set_module_setting('gov', 'GOV_DEFAULT_TOP_VALUE', $_POST['NEW_GOV_DEFAULT_TOP_LEVEL']);
@@ -178,92 +186,134 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 				set_module_setting('gov', 'GOV_PREFIX_'.$i,  $_POST['NEW_GOV_PREFIX_'.$i]);
 				set_module_setting('gov', 'GOV_POSTFIX_'.$i, $_POST['NEW_GOV_POSTFIX_'.$i]);
 			}
+			
+			set_module_setting('gov', 'GOV_USE_PIWIGO', 	$_POST['NEW_GOV_USE_PIWIGO']);
+			set_module_setting('gov', 'GOV_PATH_PIWIGO',	$_POST['NEW_GOV_PATH_PIWIGO']);
+			set_module_setting('gov', 'GOV_USE_GEOHACK', 	$_POST['NEW_GOV_USE_GEOHACK']);
+			set_module_setting('gov', 'GOV_USE_DELCAMPE', 	$_POST['NEW_GOV_USE_DELCAMPE']);
+			set_module_setting('gov', 'GOV_USE_PDF', 		$_POST['NEW_GOV_USE_PDF']);
 
 			AddToLog('GOV config updated', 'config');
+
 			// read the config file again, to set the vars
 			require WT_ROOT.WT_MODULES_DIR.$this->getName().'/defaultconfig.php';
+			// tbd: check if there is a piwigo webservice answering at the entered piwigo address
 		}
 		?>
-		<table id="gm_config">
-			<tr>
-				<th>
-					<a class="current" href="module.php?mod=gov&amp;mod_action=admin_config">
-						<?php echo WT_I18N::translate('GOV preferences'); ?>
-					</a>
-				</th>
-				<th>
-					<a href="module.php?mod=gov&amp;mod_action=admin_places">
-						<?php echo WT_I18N::translate('GOV data'); ?>
-					</a>
-				</th>
-				<th>
-					<a href="module.php?mod=gov&amp;mod_action=admin_placecheck">
-						<?php echo WT_I18N::translate('Place Check'); ?>
-					</a>
-				</th>
-			</tr>
-		</table>
-
-		<form method="post" name="configform" action="module.php?mod=gov&mod_action=admin_config">
-			<input type="hidden" name="action" value="update">
-			<div id="tabs">
-				<ul>
-					<li><a href="#gov_ph"><span><?php echo WT_I18N::translate('Place hierarchy'); ?></span></a></li>
-                    <li><a href="#gov_fixes"><span><?php echo WT_I18N::translate('Prefixes and Suffixes'); ?></span></a></li>
-				</ul>
-
-				<div id="gov_ph">
-					<table class="gm_edit_config">
-						<tr>
-							<th><?php echo WT_I18N::translate('Use GOV for the place hierarchy'); ?></th>
-							<td><?php echo edit_field_yes_no('NEW_GOV_PLACE_HIERARCHY', get_module_setting('gov', 'GOV_PLACE_HIERARCHY', '0')); ?></td>
-						</tr>
-                        
-						<tr>
-							<th><?php echo WT_I18N::translate('Display short placenames'), help_link('GOV_DISP_SHORT_PLACE', $this->getName()); ?></th>
-							<td><?php echo edit_field_yes_no('NEW_GOV_DISP_SHORT_PLACE', $GOV_DISP_SHORT_PLACE); ?></td>
-						</tr>
-					</table>
-				</div>
-
-				<div id="gov_fixes">
-					<table class="gm_edit_config">
-						<tr>
-							<th colspan="2"><?php echo WT_I18N::translate('Default top-level value'), help_link('GOV_DEFAULT_LEVEL_0', $this->getName()); ?></th>
-							<td><input type="text" name="NEW_GOV_DEFAULT_TOP_LEVEL" value="<?php echo $GOV_DEFAULT_TOP_VALUE; ?>" size="20"></td>
-							<td>&nbsp;</td>
-						</tr>
-                        
-						<tr>
-							<th class="gm_prefix" colspan="3"><?php echo WT_I18N::translate('Optional prefixes and suffixes for GOV'), help_link('GOV_NAME_PREFIX_SUFFIX', $this->getName());?></th>
-						</tr>
-						<tr id="gm_level_titles">
-							<th>&nbsp;</th>
-							<th><?php echo WT_I18N::translate('Prefixes'); ?></th>
-							<th><?php echo WT_I18N::translate('Suffixes'); ?></th>
-						<?php for ($level=1; $level < 10; $level++) { ?>
-						<tr  class="gm_levels">
-							<th>
-								<?php
-								if ($level==1) {
-									echo WT_I18N::translate('Country');
-								} else {
-									echo WT_I18N::translate('Level'), " ", $level;
-								}
-								?>
-							</th>
-							<td><input type="text" size="30" name="NEW_GOV_PREFIX_<?php echo $level; ?>" value="<?php echo $GOV_PREFIX[$level]; ?>"></td>
-							<td><input type="text" size="30" name="NEW_GOV_POSTFIX_<?php echo $level; ?>" value="<?php echo $GOV_POSTFIX[$level]; ?>"></td>
-						</tr>
-						<?php } ?>
-					</table>
-				</div>
-
-			</div>
-			<p>
-				<input type="submit" value="<?php echo WT_I18N::translate('save'); ?>">
-			</p>
-		</form>
+        <div id="gov">
+            <div id="error"></div>
+            <table id="gov_config">
+                <tr>
+                    <th>
+                        <a class="current" href="module.php?mod=gov&amp;mod_action=admin_config">
+                            <?php echo WT_I18N::translate('GOV preferences'); ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="module.php?mod=gov&amp;mod_action=admin_places">
+                            <?php echo WT_I18N::translate('GOV data'); ?>
+                        </a>
+                    </th>
+                    <th>
+                        <a href="module.php?mod=gov&amp;mod_action=admin_placecheck">
+                            <?php echo WT_I18N::translate('Place Check'); ?>
+                        </a>
+                    </th>
+                </tr>
+            </table>
+    
+            <form method="post" name="configform" action="module.php?mod=gov&mod_action=admin_config">
+                <input type="hidden" name="action" value="update">
+                <div id="tabs">
+                    <ul>
+                        <li><a href="#gov_ph"><span><?php echo WT_I18N::translate('Place hierarchy'); ?></span></a></li>
+                        <li><a href="#gov_fixes"><span><?php echo WT_I18N::translate('Prefixes and Suffixes'); ?></span></a></li>
+                        <li><a href="#gov_links"><span><?php echo WT_I18N::translate('Links'); ?></span></a></li>
+                    </ul>
+    
+                    <div id="gov_ph">
+                        <table class="gov_edit_config">
+                            <tr>
+                                <th><?php echo WT_I18N::translate('Use GOV for the place hierarchy'); ?></th>
+                                <td><?php echo edit_field_yes_no('NEW_GOV_PLACE_HIERARCHY', get_module_setting('gov', 'GOV_PLACE_HIERARCHY', '0')); ?></td>
+                            </tr>
+                            
+                            <tr>
+                                <th><?php echo WT_I18N::translate('Display short placenames'), help_link('GOV_DISP_SHORT_PLACE', $this->getName()); ?></th>
+                                <td><?php echo edit_field_yes_no('NEW_GOV_DISP_SHORT_PLACE', $GOV_DISP_SHORT_PLACE); ?></td>
+                            </tr>
+                        </table>
+                    </div>
+    
+                    <div id="gov_fixes">
+                        <table class="gov_edit_config">
+                            <tr>
+                                <th colspan="2"><?php echo WT_I18N::translate('Default top-level value'), help_link('GOV_DEFAULT_LEVEL_0', $this->getName()); ?></th>
+                                <td><input type="text" name="NEW_GOV_DEFAULT_TOP_LEVEL" value="<?php echo $GOV_DEFAULT_TOP_VALUE; ?>" size="20"></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            
+                            <tr>
+                                <th class="gov_prefix" colspan="3"><?php echo WT_I18N::translate('Optional prefixes and suffixes for GOV'), help_link('GOV_NAME_PREFIX_SUFFIX', $this->getName());?></th>
+                            </tr>
+                            <tr id="gov_level_titles">
+                                <th>&nbsp;</th>
+                                <th><?php echo WT_I18N::translate('Prefixes'); ?></th>
+                                <th><?php echo WT_I18N::translate('Suffixes'); ?></th>
+                            <?php for ($level=1; $level < 10; $level++) { ?>
+                            <tr  class="gov_levels">
+                                <th>
+                                    <?php
+                                    if ($level==1) {
+                                        echo WT_I18N::translate('Country');
+                                    } else {
+                                        echo WT_I18N::translate('Level'), " ", $level;
+                                    }
+                                    ?>
+                                </th>
+                                <td><input type="text" size="30" name="NEW_GOV_PREFIX_<?php echo $level; ?>" value="<?php echo $GOV_PREFIX[$level]; ?>"></td>
+                                <td><input type="text" size="30" name="NEW_GOV_POSTFIX_<?php echo $level; ?>" value="<?php echo $GOV_POSTFIX[$level]; ?>"></td>
+                            </tr>
+                            <?php } ?>
+                        </table>
+                    </div>
+                    
+                    <div id="gov_links">
+                        <table class="gov_edit_config">
+                            <tr>
+                                <th><?php echo WT_I18N::translate('Use Piwigo for place gallery'), help_link('GOV_USE_PIWIGO', $this->getName()); ?></th>
+                                <td><?php echo edit_field_yes_no('NEW_GOV_USE_PIWIGO', get_module_setting('gov', 'GOV_USE_PIWIGO', false)); ?></td>
+                            </tr>
+                            
+                            <tr>
+                                <th><?php echo WT_I18N::translate('Path to Piwigo module'), help_link('GOV_PATH_PIWIGO', $this->getName()); ?></th>
+                                <td><input type="text" size="70" name="NEW_GOV_PATH_PIWIGO" value="<?php echo $GOV_PATH_PIWIGO; // tbd: should this be get_module_setting() ??? ?>"></td>
+                            </tr>
+                            
+                            <tr>
+                                <th><?php echo WT_I18N::translate('Show link to Geohack'), help_link('GOV_USE_GEOHACK', $this->getName()); ?></th>
+                                <td><?php echo edit_field_yes_no('NEW_GOV_USE_GEOHACK', get_module_setting('gov', 'GOV_USE_GEOHACK', true)); ?></td>
+                            </tr>
+                            
+                            <tr>
+                                <th><?php echo WT_I18N::translate('Show link to Delcampe postcards'), help_link('GOV_USE_DELCAMPE', $this->getName()); ?></th>
+                                <td><?php echo edit_field_yes_no('NEW_GOV_USE_DELCAMPE', get_module_setting('gov', 'GOV_USE_DELCAMPE', true)); ?></td>
+                            </tr>
+                            
+                            <tr>
+                                <th><?php echo WT_I18N::translate('Show link to PDF documents'), help_link('GOV_USE_PDF', $this->getName()); ?></th>
+                                <td><?php echo edit_field_yes_no('NEW_GOV_USE_PDF', get_module_setting('gov', 'GOV_USE_PDF', true)); ?></td>
+                            </tr>
+                                                        
+                        </table>
+                    </div>
+    
+                </div>
+                <p>
+                    <input type="submit" value="<?php echo WT_I18N::translate('save'); ?>">
+                </p>
+            </form>
+        </div>
 		<?php
 	}
 
@@ -301,7 +351,8 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 			->pageHeader();
 
 		echo '
-			<table id="gm_config">
+		    <div id="gov">
+			<table id="gov_config">
 				<tr>
 					<th>
 						<a href="module.php?mod=gov&amp;mod_action=admin_config">', WT_I18N::translate('GOV preferences'),'</a>
@@ -317,14 +368,15 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 						</a>
 					</th>
 				</tr>
-			</table>';
+			</table>
+			</div>';
 
 		//Start of User Defined options
 		echo '
 			<form method="get" name="placecheck" action="module.php">
 				<input type="hidden" name="mod" value="', $this->getName(), '">
 				<input type="hidden" name="mod_action" value="admin_placecheck">
-				<div class="gm_check">
+				<div class="gov_check">
 					<label>', WT_I18N::translate('Family tree'), '</label>';
 					echo select_edit_control('gedcom_id', WT_Tree::getIdList(), null, $gedcom_id, ' onchange="this.form.submit();"');
 					echo '<label>', WT_I18N::translate('Country'), '</label>
@@ -361,7 +413,7 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 						echo ' checked="checked"';
 					}
 					echo '>';
-				echo '</div>';// close div gm_check
+				echo '</div>';// close div gov_check
 				echo '<input type="hidden" name="action" value="go">';
 			echo '</form>';//close form placecheck
 			echo '<hr>';
@@ -370,7 +422,7 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 		case 'go':
 			//Identify gedcom file
 			$trees=WT_Tree::getAll();
-			echo '<div id="gm_check_title">', $trees[$gedcom_id]->tree_title_html, '</div>';
+			echo '<div id="gov_check_title">', $trees[$gedcom_id]->tree_title_html, '</div>';
 			//Select all '2 PLAC ' tags in the file and create array
 			$place_list=array();
 			$ged_data=WT_DB::prepare("SELECT i_gedcom FROM `##individuals` WHERE i_gedcom LIKE ? AND i_file=?")
@@ -439,13 +491,14 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 			$cols=0;
 			$subcol=2;
 			$span=$max*$subcol;
-			echo '<div class="gm_check_details">';
-			echo '<table class="gm_check_details"><tr>';
+			echo '<div id="gov">';
+			echo '<div class="gov_check_details">';
+			echo '<table class="gov_check_details"><tr>';
 			echo '<th rowspan="3">', WT_I18N::translate('Place'), '</th>';
 			echo '<th colspan="', $span, '">', WT_I18N::translate('GOV data'), '</th></tr>';
 			echo '<tr>';
 			while ($cols<$max) {
-				// use HEAD PLAC FORM information for headings; see get_plac_label()
+				// tbd: use HEAD PLAC FORM information for headings; see get_plac_label()
 				if ($cols == 0) {
 					echo '<th colspan="'.$subcol.'">'.WT_I18N::translate('Country').'</th>';
 				} else {
@@ -555,33 +608,34 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 				$x++;
 			}
 			// echo final row of table
-			echo '<tr><td colspan="', $span+1, '" class="accepted">', /* I18N: A count of places */ WT_I18N::translate('Total places: %s', WT_I18N::number($countrows)), '</td></tr></table></div>';
+			echo '<tr><td colspan="', $span+1, '" class="accepted">', /* I18N: A count of places */ WT_I18N::translate('Total places: %s', WT_I18N::number($countrows)), '</td></tr>';
+			echo '</table></div></div>';
 			break;
 		default:
 			// Do not run until user selects a gedcom/place/etc.
 			// Instead, show some useful help info.
-			echo '<div class="gm_check_top accepted">', WT_I18N::translate('This will list all the places from the selected GEDCOM file. By default this will NOT INCLUDE places that are fully matched between the GEDCOM file and the GOV table.'), '</div>';
+			echo '<div class="gov_check_top accepted">', WT_I18N::translate('This will list all the places from the selected GEDCOM file. By default this will NOT INCLUDE places that are fully matched between the GEDCOM file and the GOV table.'), '</div>';
 			break;
 		}
 	}
 	
 	private function getStylesheet() {
 		$module_dir = WT_STATIC_URL.WT_MODULES_DIR.$this->getName().'/';
+		$stylesheet = '';
 		if (file_exists($module_dir.WT_THEME_URL.'menu.css')) {
-			$stylesheet = $this->includeCss($module_dir.WT_THEME_URL.'menu.css');
+			$stylesheet .= $this->includeCss($module_dir.WT_THEME_URL.'menu.css', 'screen');
 		}
-		else {
-			return false;
-		}
+
 		if(WT_Filter::get('mod') == $this->getName()) {
 			$stylesheet .= $this->includeCss($module_dir.'themes/base/style.css');
+			// $stylesheet .= $this->includeCss($module_dir.'themes/base/print.css', 'print');
 			if (file_exists($module_dir.WT_THEME_URL.'style.css')) {
-				$stylesheet .= $this->includeCss($module_dir.WT_THEME_URL.'style.css');
-			}		
-		}			
+				$stylesheet .= $this->includeCss($module_dir.WT_THEME_URL.'style.css', 'screen');
+			}
+		}
 		return $stylesheet;
 	}
-	
+
 	private function includeJs() {
 		global $controller;
 		// some files needs an extra js script
@@ -590,19 +644,16 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 			$controller->addExternalJavascript(WT_MODULES_DIR.$this->getName().'/'.WT_THEME_URL.$theme.'.js');
 		}
 	}
-	
-	private function includeCss($css) {
+
+	private function includeCss($css, $type = 'all') {
 		return
 			'<script>
-				if (document.createStyleSheet) {
-					document.createStyleSheet("'.$css.'"); // For Internet Explorer
-				} else {
-					var newSheet=document.createElement("link");
-					newSheet.setAttribute("href","'.$css.'");
-					newSheet.setAttribute("type","text/css");
-					newSheet.setAttribute("rel","stylesheet");
-					document.getElementsByTagName("head")[0].appendChild(newSheet);
-				}
+				var newSheet=document.createElement("link");
+				newSheet.setAttribute("href","'.$css.'");
+				newSheet.setAttribute("type","text/css");
+				newSheet.setAttribute("rel","stylesheet");
+				newSheet.setAttribute("media","'.$type.'");
+				document.getElementsByTagName("head")[0].appendChild(newSheet);
 			</script>';
 	}
 	
@@ -621,8 +672,8 @@ class gov_WT_Module extends WT_Module implements WT_Module_Config, WT_Module_Tab
 			return $form;
 		}
 		
-		$HEAD_PLAC_FORM = get_plac();
-		if (empty($HEAD_PLAC_FORM)) $HEAD_PLAC_FORM = /* I18N: Do not translate; already in webtrees core */ 'City, County, State/Province, Country';
-		return $HEAD_PLAC_FORM;
+		$head_plac_form = get_plac();
+		if (empty($head_plac_form)) $head_plac_form = /* I18N: Do not translate; already in webtrees core */ 'City, County, State/Province, Country';
+		return $head_plac_form;
 	}	
 }

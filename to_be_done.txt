@@ -1,0 +1,24 @@
+* integrate more place links
+  * from other sub-modules from places_doc
+    * cassini for places in FRA
+	* delcampe for postcards
+  * show documents/images in
+    * data/media/places/docs/<god-id>.php and
+	* data/media/places/images/<god-id>/<xxx>.jpg
+  * show links from GOV to wikipedia or geonames, ...
+* GOV tab second column: events should be in one column not in one row
+* admin menu: "edit" function
+  * search for places using GOV webservice
+    * problem with umlauts
+	* "belongs to" delivers historical path (e.g. Deutsches Reich), but should deliver actual path (e.g. Bundesrepublik Deutschland)
+* optimiziation of css and themes
+  * doesn't work for Admin tab "GOV data"
+  * doesn't work for GOV tab
+* when import place data from tree: use existing _GOV/NOTE GOV records to set new GOV database table entries
+* export GOV id to _GOV records in all Event-PLAC-records 
+* many minor important things (search inside code for "// tbd:")
+* display more information from GOV database, like demographic data, sources, ...
+* check for privacy settings
+* translation to other languages
+* optimize performance
+* debugging, testing

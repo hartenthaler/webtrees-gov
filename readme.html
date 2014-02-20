@@ -1,0 +1,205 @@
+<?php
+/**
+  *  Module GOV
+  *
+  *  Version 1.5.1
+  *  Copyright (C) 2013 webtrees Development Team. All rights reserved.
+  *
+  *
+  *  # $Id: readme.html 2014-01-06 Hermann Hartenthaler $
+ */
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>webtrees ReadMe file - GOV</title>
+<style type="text/css">
+	body{color:black;background-color:white;font:14px tahoma arial helvetica sans-serif;padding:10px;width:800px;margin:0 auto}
+	a{
+	color:#039;
+	font-weight:normal;
+	text-decoration:none
+}
+	a:hover{color:#039}
+	h1{color:#039;font-weight:normal}
+	li{line-height:150%}
+	dt{font-weight:bold}
+	dd{margin-bottom: 20px}
+	.back {color:#039;float:right}
+</style>
+</head>
+
+<body>
+<a name="top">
+<h1>ReadMe File - &quot;GOV&quot;</h1>
+<h2>Version 1.5.1</h2>
+</a>
+<ul>
+	<li><a href="#description">Description</a></li>
+	<li><a href="#requirements">Requirements</a></li>
+	<li><a href="#installation">Installing the module</a></li>
+    <li><a href="#enter_data">Enter data</a></li>
+    <li><a href="#update">Updating from a previous version</a></li>
+	<li><a href="#options">Module options</a></li>
+	<li><a href="#themes">Themes</a></li>
+	<li><a href="#translations">Custom translations</a></li>
+    <li><a href="#desihn">Design Decisions</a></li>
+    <li><a href="#bugs">Bugs and feature requests</a></li>
+</ul>
+<hr/>
+
+<!-- DESCRIPTION -->
+<div style="float:left;"><a name="description">
+<h3>Description</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>This module will display in a new tab  information on the places mentioned in the &quot;facts and events&quot; tab of a person based on information of the GOV system (Genealogisches Ortsverzeichnis).</p>
+<p><em>tbd: value for the user; link to GOV; screenshots; ...</em></p>
+<p> You can view an example  page <a href="http://ahnen.hartenthaler.eu/individual.php?pid=I6164&ged=ahnen.ged#" target="_blank">here</a>.</p>
+</div>
+<hr/>
+
+<!-- REQUIREMENTS -->
+<div style="float:left;"><a name="requirements">
+<h3>Requirements</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>This module requires webtrees version 1.5.0 or later. It was tested with webtrees version 1.5.1.</p></div>
+<hr/>
+
+<!-- INSTALLATION -->
+<div style="float:left;"><a name="installation">
+<h3>Installing the module</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>Installation is  simple:</p>
+<ul>
+<li>upload the folder 'gov' (don't use capital letters) to your server's webtrees folder /modules_v3</li>
+<li>login to webtrees as administrator and go to Module Administration</li>
+<li>look down the list of installed modules for &quot;GOV&quot; and ensure it is ticked as &quot;enabled&quot;</li>
+<li>in the &quot;Modules&quot; submenue &quot;Tabs&quot; you can reorder the tabs and you can define who can see the GOV tab.</li>
+</ul>
+</div>
+<hr/>
+
+<!-- ENTER DATA -->
+<div style="float:left;"><a name="enter_data">
+<h3>Enter data</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>These are the instructions on getting your GOV interface to work.</p>
+<p>The additional GOV information will only be shown if at least one fact has a place with a GOV id attached to it. Attaching a GOV id can be done by an administrator through the generic place-location interface (located at the GOV preferences page) or by specifying a &quot;_GOV&quot; record or a &quot;NOTE&quot; record containing a GOV id with an event, even though this is not according to the GEDCOM standard. Other genealogy applications may not recognise a &quot;_GOV&quot; tag.</p>
+<h4>Adding GOV ids one by one to your GEDCOM file (not recommended)</h4>
+<p>This method is included so that you may have an idea of how a GEDCOM file stores GOV data. You do not need the GOV module to use this procedure.  The GOV ids for an event can only be added directly to a GEDCOM file. 
+  There are two possibilities  do this  for a PLAC record:</p>
+<p>  2 PLAC &lt;Placename&gt;<br />
+  3 _GOV &lt;GOV id&gt;<br />
+</p>
+<p>or</p>
+<p>2 PLAC &lt;Placename&gt;<br />
+  3 NOTE GOV: &lt;GOV id&gt;</p>
+<p>For example:</p>
+<p>1 BIRT<br />
+  2 DATE 24 JUL 1957<br />
+  2 PLAC Sigmaringen, Sigmaringen, Baden-Württemberg, DEU<br />
+  3 NOTE GOV: SIGGENJN48OC<br />
+  1 EDUC Abitur<br />
+  2 DATE 19 MAY 1976<br />
+  2 PLAC Freiburg, Freiburg, Baden-Württemberg, DEU<br />
+  3 _GOV  FREURGJN38WA</p>
+<p>If you like to use the GEDCOM user defined tag _GOV, you may add this tag in the administrator menue &quot;Family Trees&quot;, tab &quot;Edit options&quot; under &quot;Advanced fact settings&quot; in the field &quot;Advanced place name facts&quot;.</p>
+<h4>Add a place with a GOV id using webtrees GOV module (recommended method)</h4>
+<p>The GOV module is designed to work with locations in tree-like fashion. If we were to consider a suburb of London, the tree would take the  order 'England, London, Hackney'. This is not how we enter place names in our family data, but it is how we manage it in the Google Map module or in the GOV module. This will give access to useful place lookup features as we build up structured information. It will help you find groups of people from the same locale. And it conforms to the  GEDCOM specification, a feature of webtrees.</p>
+<p>And, before you start with any GOV endeavours, review your data. Make sure for all place names that</p>
+<ul>
+  <li>spelling is consistent</li>
+  <li>there are no 'almost' duplicates</li>
+  <li>places are in their  right country</li>
+  <li>places you describe are in true tree fashion (hierarchical)</li>
+  <li>they have the spelling which is used today, so avoid for example historical place names like &quot;Prussia&quot;
+    <ul>
+      <li>instead of &quot;Neumittelwalde, Groß Wartenberg (Landkreis), Niederschlesien, Preußen&quot;</li>
+      <li>use better &quot;Międzybórz, Oleśnica, Dolnośląskie, POL&quot; for this place</li>
+    </ul>
+  </ul>
+<p>Only then will the module make it easy for you to connect family data with GOV.</p>
+<p>This module uses a new database table to store place text and GOV information. Existing places can be imported and location information can be  added using the GOV webservice. The location information is held outside the GEDCOM (and can be shared between family trees in webtrees) and location data is entered only once for each place.</p>
+<p>Backup of location data is available by export of each new place database table to a text file (separated with &quot;;&quot;). Bulk additions can be performed by text file import (with reservations for specific place structure and spelling). </p>
+<p>Using the tree structure mentioned above, we start to build location data from the top down – which, in 99% of cases, will mean starting by entering a country. When that is done, we move to the next layer (state, county, whatever is appropriate for your locale.)</p>
+<p><em>tbd: descibe how this has to be done</em></p>
+</div>
+<hr/>
+
+<!-- UPDATE -->
+<div style="float:left;"><a name="update">
+<h3>Updating from a previous version</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>This module will be updated whenever there are some bugs fixed or feature requests implemented.  In case of updating you can just overwrite your previous version of the GOV module with the new one by uploading the folder 'gov' to your server's webtrees folder /modules_v3.</p>
+</div>
+<hr/>
+
+<!-- OPTIONS -->
+<div style="float:left;"><a name="options">
+<h3>Module options</h3></a></div><div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+  <p><span style="clear:both;">There are some</span> options for this module. </p>
+  <ul>
+  <li>Show Links
+    <ul>
+      <li>GOV: a link to the GOV web page is always shown </li>
+      <li>Piwigo: <em>tbd see help text</em></li>
+      <li>Geohack: <em>tbd see help text</em></li>
+    </ul>
+  </li>
+  <li><em>other options: tbd</em></li>
+  </ul>
+</div>
+<hr/>
+
+<!-- THEMES -->
+<div style="float:left;"><a name="themes">
+<h3>Themes</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>Stylesheets for all the core webtrees themes and the JustBlack theme are added to the module package. But up to now, no specific adoption was made for them; so feel free to do it and send them to <a href="mailto:hermann@hartenthaler.de">me</a>.</p>
+</div>
+<hr/>
+
+<!-- TRANSLATIONS -->
+<div style="float:left;"><a name="translations">
+<h3>Custom translations</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>All language items are included in the  &quot;WT_I18N::translate()&quot;, i.e. &quot;gettext&quot;, format. This means you can translate these into any other language using webtrees &quot;custom translation&quot; feature, described here: <a href="http://wiki.webtrees.net/en/Custom_Translation" target="_blank">Wiki: Custom translation</a>. Instead of adding your custom translation file(s) to the folder data/language, you have  to keep them in the folder modules_v3/gov/language.</p>
+<p>You can use the _default.pot file added in the module  language folder, to start translate the module in other languages. The _default.pot file contains all strings needed to be translated. You can open this file in any texteditor. Save your file as &lt;language ISO 639-1 code&gt;.po file. To use the translated *.po file on the module you need to convert this file to a *.mo file. This can be done with a programm like Poedit. But it is not mandatory. Just send <a href="mailto:hermann@hartenthaler.de">me</a> the translated *.po file and I will turn it in to a *.mo file and add it to the module package.</p>
+<p>The German translation file is already added to the module language folder.</p>
+</div>
+<hr/>
+
+<!-- DESIGN DECISIONS -->
+<div style="float:left;"><a name="design">
+<h3>Design Decisions</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>This design of this module follows the existing Google Maps module to make it easy for an webtrees administrator to use it.</p>
+<p>This module doesn't introduce a new place management system for webtrees. There are some ideas to manage places as level 0 records in the GEDCOM file, but this is up to now not supported by webtrees.</p>
+<p>For each place only the GOV id is stored in a database table. Whenever actual data for a place has to be shown in the new GOV tab, this information comes from the GOV database using the GOV webservice. So the amount of additional data which is stored inside the webtrees database is minimal and the data itself is always actual. The disadavantage is that it needs some time to fetch the actual data.</p>
+<p>The new GOV functions are implemented as a webtrees module, so these functions are only available inside the new GOV tab, but nowhere else inside webtrees. There are no plans to modify other webtree modules, reports or functions to make the GOV functions available there.</p>
+</div>
+<hr/>
+
+<!-- BUGS AND FEATURE REQUESTS -->
+<div style="float:left;"><a name="bugs">
+<h3>Bugs and feature requests</h3></a></div>
+<div class="back"><a href="#top">back to top</a></div>
+<div style="clear:both;">
+<p>This module is still in development and will be updated on a regular bases. It will be updated whenever there are some bugs solved or feature requests implemented. You can find the planed topics  at the file <a href="to_be_done.txt" target="_blank">to_be_done.txt</a>.</p>
+<p>For an overview of the changes made on each update have a look at the file <a href="changelog.txt" target="_blank">changelog.txt</a>.</p>
+<p>If you experiences any bugs or have a feature request for this module contact <a href="mailto:hermann@hartenthaler.de">me</a>, please.</p>
+</div>
+<hr/>
+
+<div style="font-size:11px"><span style="float:left"><a href="mailto:hermann@hartenthaler.de">hermann@hartenthaler.de</a></span></div>
+</body>
+</html>

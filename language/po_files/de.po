@@ -1,0 +1,607 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Places documentation\n"
+"POT-Creation-Date: 2014-01-19 22:52+0100\n"
+"PO-Revision-Date: 2014-01-19 22:58+0100\n"
+"Last-Translator: Hermann Hartenthaler <hermann@hartenthaler,de>\n"
+"Language-Team: Hermann Hartenthaler <hermann@hartenthaler.de>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-KeywordsList: translate;noop;plural:1,2\n"
+"X-Poedit-Basepath: ..\\..\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: help_text.php:34 module.php:244
+msgid "Default top-level value"
+msgstr "Standardwert für die oberste Ebene"
+
+#: help_text.php:35
+msgid ""
+"Here the default value for the highest level in the hierarchy of places can "
+"be defined. If a place cannot be found, this name is added as the highest "
+"level (i.e. country) and the database is searched again. For example: "
+"\"Chicago, Illinois\" is expanded to \"Chicago, Illinois, USA\", if \"USA\" "
+"is defined here as default."
+msgstr ""
+"Hier kann der Standardwert für die oberste Ortsebene (Land) definiert "
+"werden. Wenn ein Ort nicht gefunden wird, dann wird dieser Wert auf der "
+"obersten Ebene ergänzt und die Datenbank wird erneut durchsucht. Beispiel: "
+"\"Freiburg, Baden-Württemberg\" wird zu \"Freiburg, Baden-Württemberg, "
+"Deutschland\" ergänzt, wenn \"Deutschland\" hier als Standardwert definiert "
+"worden ist."
+
+#: help_text.php:39 module.php:250
+msgid "Optional prefixes and suffixes for GOV"
+msgstr "Optionale Prä- und Suffixe für GOV"
+
+#: help_text.php:40
+msgid ""
+"Some place names may be written with optional prefixes and suffixes.  For "
+"example “Orange” versus “Orange County”.  If the family tree contains the "
+"full place names, but the GOV database contains the short place names, then "
+"you should specify a list of the prefixes and suffixes to be disregarded.  "
+"Multiple options should be separated with semicolons. For example: “County;"
+"County of” or “Township;Twp;Twp.”."
+msgstr ""
+"Einige Ortsangaben können optionale Prä- und Suffixe enthalten. So kann etwa "
+"der Landkreis Sigmaringen als \"Sigmaringen\" oder als \"Landkreis "
+"Sigmaringen\" in Ihren Daten enthalten sein. Wenn die Familiendatenbank die "
+"lange Form enthält, aber die GOV-Datenbank die kurze Form ohne das Präfix "
+"\"Landkreis\", dann sollten Sie diejenigen Prä- und Suffixe hier angeben, "
+"die nicht beachtet werden sollen. Mehrfache Angaben können durch ein "
+"Semikolon getrennt werden. Beispiele: \"Landkreis;county\" oder \"Township;"
+"Twp.;city\"."
+
+#: help_text.php:44 module.php:277
+msgid "Use Piwigo for place gallery"
+msgstr "Verwende Piwigo für eine Bildergalerie der Orte"
+
+#: help_text.php:45
+msgid ""
+"If you like to show pictures and documents for your places, you can use the "
+"Piwigo module. You have to download it from http://piwigo.org and install it "
+"on your server. Then add your pictures of places to the Piwigo albums and "
+"sub-albums for every place. Finally set a permalink to each of these albums "
+"using the GOV id of the place."
+msgstr ""
+"Sie können das Piwigo-Modul verwenden, wenn Sie zu ihren Orten Bilder und "
+"Dokumente anzeigen wollen. Sie müssen das Piwigo-Modul von http://de.piwigo."
+"org herunterladen und es dann auf ihrem  Server installieren. Danach fügen "
+"sie die Bilder zu jeder Ortschaft in die Alben und Unteralben von Piwigo "
+"ein. Am Ende ordnen sie jedem Album eines Ortes die zugehörige GOV-Kennung "
+"als Permalink zu."
+
+#: help_text.php:49
+msgid "Path to Piwigo module"
+msgstr "Pfad zum Piwigo-Modul"
+
+#: help_text.php:50
+msgid ""
+"Specify the path (URL) to your Piwigo module, e.g. http://myserver/piwigo/"
+msgstr ""
+"Geben Sie den Pfad an, wo Sie das Piwigo-Modul installiert haben, z.B. "
+"http://myserver/piwigo/"
+
+#: help_text.php:56
+msgid "Enter filename"
+msgstr "Gib einen Dateinamen ein"
+
+#: help_text.php:57
+msgid ""
+"Select a file from the list of files already on the server which contains "
+"the GOV data in CSV format."
+msgstr ""
+"Wählen Sie eine bereits auf dem Server liegende Datei, die die GOV-Daten im "
+"CSV-Format enthält."
+
+#: help_text.php:61
+msgid "Show inactive places"
+msgstr "Zeige inaktive Orte"
+
+#: help_text.php:64
+msgid ""
+"By default, the list shows only those places which can be found in your "
+"family trees. You may have details for other places, such as those imported "
+"in bulk from an external file. Selecting this option will show all places, "
+"including ones that are not currently used."
+msgstr ""
+"Standardmäßig zeigt diese Liste nur diejenigen Orte, die in in ihren "
+"Stammbäumen vorkommen. Sie können aber auch für andere Orte GOV-Angaben "
+"gespeichert haben, etwa wenn Sie diese aus einer externen Datei importiert "
+"haben. Wenn Sie diese Option auswählen, dann werden Ihnen alle Orte "
+"angezeigt, auch diejenigen, die derzeit in ihren Stammbäumen nicht verwendet "
+"werden."
+
+#: help_text.php:66
+msgid ""
+"If you have a large number of inactive places, it can be slow to generate "
+"the list."
+msgstr ""
+"Wenn es eine große Anzahl an inaktiven Orten gibt, dann kann das Erzeugen "
+"der Liste lange dauern."
+
+#: help_text.php:73 module.php:235
+msgid "Display short placenames"
+msgstr "Zeige kurze Ortsnamen"
+
+#: help_text.php:74
+msgid ""
+"Here you can choose between two types of displaying places names in "
+"hierarchy. If set \"Yes\" the place is shown as a short name, if \"No\" the "
+"full hierarchy names are shown.<br /><b>Examples:<br />Full name: </"
+"b>Chicago, Illinois, USA<br /><b>Short name: </b>Chicago<br />or<br /"
+"><b>Full name: </b>Illinois, USA<br /><b>Short name: </b>Illinois"
+msgstr ""
+"Hier bestimmen Sie, wie die Orte in der Hierarchie angezeigt werden sollen. "
+"Bei \"Ja\" wird nur der Name der aktuellen Stufe angezeigt, bei \"Nein\" "
+"werden alle Hierarchiestufen des Namens angezeigt.<br /><b>Beispiele:<br /"
+">Alle Stufen: </b>Chicago, Illinois, USA<br /><b>Aktuelle Stufe: </"
+"b>Chicago<br />oder<br/><b>Alle Stufen: </b>Illinois, USA<br /><b>Aktuelle "
+"Stufe: </b>Illinois"
+
+#: module.php:53
+msgid ""
+"GOV (German: Genealogisches Ortsverzeichnis) is a database for locations and "
+"their history"
+msgstr ""
+"Das Genealogische Ortsverzeichnis (GOV) ist eine Datenbank zu Orten inkl. "
+"ihrer Historie."
+
+#: module.php:133
+msgid "No GOV data for this person."
+msgstr "Für diese Person liegen keine GOV-Daten vor."
+
+#: module.php:137 module.php:202 module.php:335 admin_places.php:178
+msgid "GOV preferences"
+msgstr "GOV-Voreinstellungen"
+
+#: module.php:207 module.php:339 module.php:475 admin_places.php:183
+#: places_edit.php:40
+msgid "GOV data"
+msgstr "GOV-Daten"
+
+#: module.php:212 module.php:344 admin_places.php:188
+msgid "Place Check"
+msgstr "Prüfung der Ortsangaben"
+
+#: module.php:222
+msgid "Place hierarchy"
+msgstr "Hierarchie der Orte"
+
+#: module.php:223
+msgid "Prefixes and Suffixes"
+msgstr "Präfixe und Suffixe"
+
+#: module.php:224
+msgid "Gallery"
+msgstr "Bildergalerie"
+
+#: module.php:230
+msgid "Use GOV for the place hierarchy"
+msgstr "Verwende GOV für die Hierarchie der Orte."
+
+#: module.php:254
+msgid "Prefixes"
+msgstr "Präfixe"
+
+#: module.php:255
+msgid "Suffixes"
+msgstr "Suffixe"
+
+#: module.php:261 module.php:359 module.php:480 admin_places.php:154
+msgid "Country"
+msgstr "Land"
+
+#: module.php:263 module.php:482 admin_places.php:154
+msgid "Level"
+msgstr "Ebene"
+
+#: module.php:282
+msgid "Path to Piwigo"
+msgstr "Pfad zu Piwigo"
+
+#: module.php:290 places_edit.php:304
+msgid "save"
+msgstr "Speichern"
+
+#: module.php:357
+msgid "Family tree"
+msgstr "Stammbaum"
+
+#: module.php:361 module.php:377
+msgid "&lt;select&gt;"
+msgstr "&lt;auswählen&gt;"
+
+#: module.php:362 module.php:378 admin_places.php:589
+msgid "All"
+msgstr "Alle"
+
+#: module.php:375
+msgid "Subdivision"
+msgstr ""
+
+#: module.php:387
+msgid "Include fully matched places: "
+msgstr "Zeige auch vollständig abgeglichene Orte:"
+
+#: module.php:474 admin_places.php:158 admin_places.php:159
+#: admin_places.php:160 admin_places.php:161 admin_places.php:162
+msgid "Place"
+msgstr "Ort"
+
+#: module.php:490 admin_places.php:163 places_edit.php:281
+msgid "GOV id"
+msgstr "GOV-Kennung"
+
+#: module.php:549 admin_places.php:488 admin_places.php:495
+#: admin_places.php:522 places_edit.php:215 places_edit.php:239
+#: places_edit.php:242
+msgid "unknown"
+msgstr "unbekannt"
+
+#: module.php:588
+#, php-format
+msgid "Total places: %s"
+msgstr "Anzahl der Orte: %s"
+
+#: module.php:594
+msgid ""
+"This will list all the places from the selected GEDCOM file. By default this "
+"will NOT INCLUDE places that are fully matched between the GEDCOM file and "
+"the GOV table."
+msgstr ""
+"Diese Funktion zeigt alle Orte in der ausgewählten GEDCOM-Datei. "
+"Standardmäßig werden dabei diejenigen Orte nicht angezeigt, für die es "
+"zwischen der GEDCOM-Datei und der GOV-Tabelle eine volle Übereinstimmung "
+"gibt."
+
+#: gov.php:285
+#, php-format
+msgid "GOV id %s in \"_GOV\" record is invalid."
+msgstr "Die GOV-Kennung %s im \"_GOV\" Eintrag ist ungültig."
+
+#: gov.php:287
+#, php-format
+msgid "GOV id %s in \"_GOV\" record has been replaced with %s."
+msgstr ""
+"Die GOV-Kennung %s im \"_GOV\" Eintrag wurde inzwischen durch %s ersetzt."
+
+#: gov.php:314
+#, php-format
+msgid "GOV id %s in NOTE GOV record is invalid."
+msgstr "Die GOV-Kennung %s im \"NOTE GOV\" Eintrag ist ungültig."
+
+#: gov.php:316
+#, php-format
+msgid "GOV id %s in NOTE GOV record has been replaced with %s."
+msgstr ""
+"Die GOV-Kennung %s im \"NOTE GOV\" Eintrag wurde inzwischen durch %s ersetzt."
+
+#: gov.php:326
+#, php-format
+msgid "Inconsistent \"_GOV %s\" and \"NOTE GOV %s\" records."
+msgstr "Die Einträge \"_GOV %s\" und \"NOTE GOV: %s\" sind inkonsistent."
+
+#: gov.php:345
+#, php-format
+msgid ""
+"Inconsistent \"_GOV or NOTE GOV %s\" records and internal GOV database (%s) "
+"records."
+msgstr ""
+"Inkonsistente \"_GOV\" oder NOTE GOV %s\" Einträge und Datensätze in der "
+"internen GOV Datenbank (%s)."
+
+#: gov.php:358
+#, php-format
+msgid "GOV id %s\" in GOV database is invalid."
+msgstr "Die GOV-Kennung %s in der GOV-Datenbank ist ungültig."
+
+#: gov.php:360
+#, php-format
+msgid "GOV id \"%s\" in GOV database has been replaced with \"%s\"."
+msgstr ""
+"Die GOV-Kennung \"%s\" in der GOV Datenbank wurde durch \"%s\" ersetzt."
+
+#: gov.php:501
+#, php-format
+msgid ""
+"Distance between position of \"%s\" in your ADDR record and in GOV database "
+"is %s km."
+msgstr ""
+"Die Entfernung zwischen der Position von %s in Ihrem ADDR Eintrag und in  "
+"der GOV Datenbank beträgt %s km."
+
+#: gov.php:504
+#, php-format
+msgid ""
+"Distance between position of \"%s\" in your MAP record and in GOV database "
+"is %s km."
+msgstr ""
+"Die Entfernung zwischen der Position von %s in Ihrem ADDR Eintrag und in  "
+"der GOV Datenbank beträgt %s km."
+
+#: gov.php:507
+#, php-format
+msgid ""
+"Distance between position of \"%s\" in the webtrees Google Maps™ module and "
+"in GOV database is %s km."
+msgstr ""
+"Die Entfernung zwischen der Position von %s in Ihrem ADDR Eintrag und in  "
+"der GOV Datenbank beträgt %s km."
+
+#: gov.php:535
+msgid "birth of daughter"
+msgstr "Geburt einer Tochter"
+
+#: gov.php:539
+msgid "birth of son"
+msgstr "Geburt eines Sohnes"
+
+#: gov.php:543
+msgid "birth of child"
+msgstr "Geburt eines Kindes"
+
+#: gov.php:612
+#, php-format
+msgid "The name of this place in (%s) is %s."
+msgstr "Der Name dieses Ortes lautet in %s %s."
+
+#: gov.php:616
+#, php-format
+msgid "The name of this place in your language (%s) is today %s."
+msgstr ""
+"Der Name dieses Ortes lautet in Ihrer Sprache (%s) zum heutigen Zeitpunkt %s."
+
+#: gov.php:627
+msgid "Links"
+msgstr "Verweise"
+
+#: gov.php:633
+msgid "Link to GOV"
+msgstr "Verweis nach GOV"
+
+#: gov.php:649
+#, php-format
+msgid "%s°N"
+msgstr "%s°N"
+
+#: gov.php:649
+#, php-format
+msgid "%s°S"
+msgstr "%s°S"
+
+#: gov.php:650
+#, php-format
+msgid "%s°E"
+msgstr "%s°E"
+
+#: gov.php:650
+#, php-format
+msgid "%s°W"
+msgstr "%s°W"
+
+#: gov.php:651
+#, php-format
+msgid "Link to Geohack: location at %s / %s"
+msgstr "Verweis nach Geohack: Position bei %s / %s"
+
+#: gov.php:710
+#, php-format
+msgid "The name of this place was %s on %s."
+msgstr "Der Name dieses Ortes lautete %s zum Zeitpunkt: %s."
+
+#: gov.php:712
+#, php-format
+msgid "The name of this place was %s on %s and %s on %s."
+msgstr ""
+"Der Name dieses Ortes lautete %s zum Zeitpunkt %s und %s zum Zeitpunkt %s."
+
+#: gov.php:750
+msgid "No information found."
+msgstr "Es wurde keine Information gefunden."
+
+#: admin_places.php:155
+msgid "State"
+msgstr ""
+
+#: admin_places.php:156
+msgid "County"
+msgstr "Landkreis"
+
+#: admin_places.php:157
+msgid "City"
+msgstr ""
+
+#: admin_places.php:169
+msgid "GOV"
+msgstr "GOV"
+
+#: admin_places.php:301
+msgid "File containing GOV information (CSV)"
+msgstr "Datei, die GOV-Informationen im CSV-Format enthält"
+
+#: admin_places.php:306
+msgid "Server file containing GOV information (CSV)"
+msgstr "Datei, die GOV-Informationen im CSV-Format enthält"
+
+#: admin_places.php:320
+msgid "Delete all existing GOV data before importing the file."
+msgstr "Lösche alle vorhandenen GOV Daten bevor die Datei importiert wird."
+
+#: admin_places.php:324
+msgid ""
+"Do not create new locations, just import GOV information for existing "
+"locations."
+msgstr ""
+"Keine neuen Orte erzeugen, nur GOV-Daten für bereits existierende Orte "
+"einlesen."
+
+#: admin_places.php:328
+msgid "Overwrite existing GOV data."
+msgstr "Überschreibe existierende GOV-Daten."
+
+#: admin_places.php:332
+msgid "Continue adding"
+msgstr ""
+
+#: admin_places.php:453
+msgid "Location not removed: this location contains sub-locations"
+msgstr "Ort wird nicht entfernt, da zu diesem Ort Unterorte existieren"
+
+#: admin_places.php:474
+msgid "Remove this location?"
+msgstr "Diesen Ort löschen?"
+
+#: admin_places.php:500 admin_places.php:548
+msgid "Top Level"
+msgstr "Standardwert für die oberste Ebene"
+
+#: admin_places.php:502
+msgid "Show inactive GOV records"
+msgstr "Zeige auch inaktive GOV Datensätze"
+
+#: admin_places.php:514 admin_places.php:524
+msgid "Edit"
+msgstr ""
+
+#: admin_places.php:514
+msgid "Delete"
+msgstr "Löschen"
+
+#: admin_places.php:516
+msgid "No GOV records found"
+msgstr "Es wurden keine GOV Datensätze gefunden."
+
+#: admin_places.php:530
+msgid "Remove"
+msgstr "Diesen Ort löschen?"
+
+#: admin_places.php:544
+msgid "Add  a new GOV record"
+msgstr "Füge einen neuen GOV-Datensatz hinzu"
+
+#: admin_places.php:549
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: admin_places.php:555
+msgid "Import all places from a family tree"
+msgstr "Import aller Orte aus einem Stammbaum"
+
+#: admin_places.php:563
+msgid "Import"
+msgstr "Import"
+
+#: admin_places.php:569
+msgid "Upload GOV data"
+msgstr "GOV-Daten hochladen"
+
+#: admin_places.php:576
+msgid "Upload"
+msgstr "Hochladen"
+
+#: admin_places.php:582
+msgid "Download GOV data"
+msgstr "GOV-Daten herunterladen"
+
+#: admin_places.php:590
+msgid "Download"
+msgstr "Herunterladen"
+
+#: places_edit.php:167 places_edit.php:185 places_edit.php:305
+msgid "close"
+msgstr ""
+
+#: places_edit.php:266
+msgid "Search"
+msgstr ""
+
+#: places_edit.php:275
+msgid "No GOV data found. Please log in to GOV and enter your place there."
+msgstr ""
+"Es wurden keine zugehörigen GOV-Daten gefunden. Bitte melden Sie sich direkt "
+"bei GOV an, wenn Sie dort Daten eingeben möchten. Danach können diese dann "
+"hier gefunden werden."
+
+#: places_edit.php:278
+msgid "Name"
+msgstr "Name"
+
+#: places_edit.php:279
+msgid "Type"
+msgstr "Typ"
+
+#: places_edit.php:280
+msgid "belongs to"
+msgstr "gehört zu"
+
+#~ msgid "Use piwigo for place gallery"
+#~ msgstr "Verwende Piwigo für eine Bildergallerie der Orte"
+
+#~ msgid "This place has no coordinates"
+#~ msgstr "Für diesen Ort liegen keine Koordinaten vor."
+
+#, fuzzy
+#~ msgid "Geographic data"
+#~ msgstr "GOV-Daten"
+
+#~ msgid "This place is located at"
+#~ msgstr "Dieser Ort liegt bei"
+
+#~ msgid "There is still no name of place defined."
+#~ msgstr "Es ist noch immer kein Name für den Ort definiert."
+
+#~ msgid "Default value for top-level"
+#~ msgstr "Standardwert für die oberste Ebene"
+
+#~ msgid "Optional prefixes and suffixes"
+#~ msgstr "Optionale Prä- und Suffixe"
+
+#~ msgid "Basic"
+#~ msgstr "Basis"
+
+#~ msgid "Search for country in Wikipedia"
+#~ msgstr "Suche nach dem Land in der Wikipedia"
+
+#~ msgid "<p>Click on the country name to start searching in Wikipedia.</p>"
+#~ msgstr ""
+#~ "<p>Um in der Wikipedia  nach dem Ländernamen zu suchen,klicken Sie auf "
+#~ "ihn.</p>"
+
+#~ msgid "Places documentation"
+#~ msgstr "Ortsinformationen"
+
+#~ msgid ""
+#~ "A tab showing images and information about places of the facts for a "
+#~ "person."
+#~ msgstr ""
+#~ "Ein Reiter, der für die Ereignisse im Leben einer Person Fotos und "
+#~ "Informationen zu den jeweiligen Orten zeigt."
+
+#~ msgid "Some places are formatted invalid. Check it, please!"
+#~ msgstr "Einige Orte sind nicht korrekt formatiert. Bitte ändern!"
+
+#~ msgid "Images and information about places of facts for this person."
+#~ msgstr ""
+#~ "Fotos und Informationen über die Orte zu den Ereignissen im Leben dieser "
+#~ "Person."
+
+#~ msgid "Personal Document"
+#~ msgstr "Dokumente zum Ort"
+
+#~ msgid "Search in wikipedia"
+#~ msgstr "Suche in der wikipedia"
+
+#~ msgid "Postcards"
+#~ msgstr "Postkarten"
+
+#~ msgid "Cassini map"
+#~ msgstr "Karte von Cassini"
+
+#~ msgid "There are no images in /Places/Images/.../"
+#~ msgstr "Es gibt keine Fotos in /Places/Images/.../"

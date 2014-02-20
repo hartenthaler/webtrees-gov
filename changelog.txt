@@ -1,0 +1,4 @@
+===========================================================================================================================
+Version 1.0 - started 09.11.2013 (Hermann Hartenthaler)
+* based on module google maps
+* first beta release scheduled for end of februar 2014

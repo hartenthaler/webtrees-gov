@@ -1,0 +1,49 @@
+/* Theme style for the GOV Administrator Pages
+** Copyright (C) 2014 Hermann Hartenthaler
+*/
+
+/* config */
+#gov table#gov_config{background:#fdf5e6;border:1px inset #d9d6c4;border-collapse:separate;border-spacing:0;margin:0 auto 10px;width:100%}
+#gov #gov_config th{font-size:105%;font-weight:bold;padding:5px;text-align:left}
+html[dir=rtl] #gov #gov_config th{text-align:right}
+#gov table.gov_edit_config{background:#fdf5e6;border:1px inset #d9d6c4;border-collapse:separate;border-spacing:0;font-size:90%;margin:10px 0}
+#gov .gov_edit_config th{border-bottom:1px solid #d3d3d3;font-weight:bold;padding:5px;text-align:left}
+html[dir=rtl] #gov .gov_edit_config th{text-align:right}
+#gov .gov_edit_config td{border-bottom:1px solid #d3d3d3;padding:1px 0 0 50px;vertical-align:middle}
+#gov .gov_edit_config input{margin:0;vertical-align:middle}
+#gov .gov_edit_config label{margin:5px;vertical-align:middle}
+html[dir=rtl] #gov .gov_edit_config td{padding:1px 50px 0 0}
+
+/* xxx */
+#gov #gov_breadcrumb,#gov_breadcrumb a{color:#008000;font-weight:bold;font-size:105%;padding:5px}
+#gov #gov_active{padding:5px;vertical-align:top}
+#gov #gov_advanced td{padding:0}
+#gov table#gov_levels{margin-left:20px}
+html[dir=rtl] #gov table#gov_levels{margin-right:20px}
+#gov .gov_levels th,.gov_prefix{color:#008000}
+#gov #gov_level_titles th{text-align:center}
+#gov .gov_levels input{width:90%}
+
+/* plac_edit */
+#gov table.gov_plac_edit{background:#fdf5e6;border:1px inset #d9d6c4;border-collapse:separate;border-spacing:0;margin:0 0 10px 0;padding:0 5px;width:100%}
+#gov div.gov_plac_edit{width:100%;max-height:535px;overflow:auto}
+#gov .gov_plac_edit th{border-bottom:2px solid #d3d3d3;font-size:105%;font-weight:bold;padding:5px;text-align:left}
+html[dir=rtl] #gov .gov_plac_edit th{text-align:right}
+#gov .gov_plac_edit td{border-bottom:1px solid #d3d3d3}
+table.gov_table{background:#fdf5e6;border:1px inset #d9d6c4;border-collapse:separate;border-spacing:0;margin:0 0 10px 0;padding:0 5px;width:100%;font-size:70%}
+table.gov_table th{border-bottom:2px solid #d3d3d3;font-size:95%;font-weight:bold;padding:2px;text-align:left}
+
+/* check, manage */
+#gov table#gov_manage{background:#fdf5e6;border:1px inset #d9d6c4;border-collapse:separate;border-spacing:0;margin:10px 0 0;padding:0 5px;width:98%}
+#gov #gov_manage td{border-bottom:1px solid #d3d3d3;vertical-align:middle}
+#gov #gov_active input{height:auto;vertical-align:top}
+#gov .gov_check{background:#fdf5e6;border:1px inset #d9d6c4;padding:5px}
+#gov .gov_check a,.gov_check_top a:hover,.gov_check_details a,.details:hover{color:#00f}
+#gov .gov_check label{margin-left:20px;margin-right:0;white-space:nowrap}
+html[dir=rtl] #gov .gov_check label{margin-right:20px;margin-left:0}
+#gov .gov_check input[type="checkbox"]{vertical-align:text-bottom}
+#gov #gov_check_title{font-weight:bold;padding:5px}
+#gov div.gov_check_details{width:100%;max-height:530px;overflow:auto}
+#gov table.gov_check_details{background:#fdf5e6;border:1px inset #d9d6c4;border-collapse:separate;border-spacing:0;margin:10px 0;width:100%}
+#gov .gov_check_details th{border-right:1px solid #d3d3d3;border-left:1px solid #d3d3d3;border-bottom:2px solid #d3d3d3;border-top:0;font-size:95%;font-weight:bold;padding:2px;text-align:center}
+#gov .gov_check_details td{border:1px solid #d3d3d3;border-top:0;font-size:70%}

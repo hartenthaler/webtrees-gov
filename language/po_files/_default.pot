@@ -1,0 +1,70 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Places documentation\n"
+"POT-Creation-Date: 2013-11-03 22:55+0100\n"
+"PO-Revision-Date: 2013-11-03 22:57+0100\n"
+"Last-Translator: Hermann Hartenthaler <hermann@hartenthaler,de>\n"
+"Language-Team: Hermann Hartenthaler <hermann@hartenthaler.de>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: translate;noop;plural:1,2\n"
+"X-Poedit-Basepath: ..\\..\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: help_text.php:34
+msgid "Search for country in Wikipedia"
+msgstr ""
+
+#: help_text.php:35
+msgid "<p>Click on the country name to start searching in Wikipedia.</p>"
+msgstr ""
+
+#: module.php:65
+msgid "Places documentation"
+msgstr ""
+
+#: module.php:70
+msgid ""
+"A tab showing images and information about places of the facts for a person."
+msgstr ""
+
+#: module.php:132
+msgid "Some places are formatted invalid. Check it, please!"
+msgstr ""
+
+#: module.php:155
+msgid "Images and information about places of facts for this person."
+msgstr ""
+
+#: module.php:252
+msgid "Personal Document"
+msgstr ""
+
+#: module.php:268
+msgid "Picture Gallery"
+msgstr ""
+
+#: module.php:283
+msgid "Search in wikipedia"
+msgstr ""
+
+#: module.php:321
+msgid "Postcards"
+msgstr ""
+
+#: module.php:347
+msgid "Cassini map"
+msgstr ""
+
+#: module.php:365
+msgid "There are no images in /Places/Images/.../"
+msgstr ""
+
+#: module.php:447 module.php:450
+msgid "City, County, State/Province, Country"
+msgstr ""
